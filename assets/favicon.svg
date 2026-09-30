@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Nestfall Arena</title>
+  <defs>
+    <linearGradient id="bg" x1="5" y1="4" x2="59" y2="61" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#102b38"/>
+      <stop offset="1" stop-color="#061017"/>
+    </linearGradient>
+    <linearGradient id="ring" x1="14" y1="12" x2="52" y2="54" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#75f6ee"/>
+      <stop offset=".48" stop-color="#37e0e2"/>
+      <stop offset="1" stop-color="#ff7865"/>
+    </linearGradient>
+    <radialGradient id="core">
+      <stop stop-color="#fffde5"/>
+      <stop offset=".42" stop-color="#ffd769"/>
+      <stop offset="1" stop-color="#ff9a55"/>
+    </radialGradient>
+    <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="2.2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="17" fill="url(#bg)" stroke="#35606c" stroke-width="2"/>
+  <path d="M17 17 23 35c2 7 6 11 9 12m15-30-6 18c-2 7-6 11-9 12" fill="none" stroke="url(#ring)" stroke-width="5" stroke-linecap="round"/>
+  <path d="M21 29c7 6 15 6 22 0" fill="none" stroke="#8efcf3" stroke-width="3" stroke-linecap="round" opacity=".9"/>
+  <circle cx="32" cy="39" r="6.5" fill="url(#core)" filter="url(#glow)"/>
+  <path d="m32 7 2.2 5.1L40 14l-5.1 2.4L32 22l-2.5-5.6L24 14l5.5-1.9L32 7Z" fill="#fff4b2" opacity=".95"/>
+</svg>

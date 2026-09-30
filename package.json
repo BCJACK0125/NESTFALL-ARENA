@@ -1,0 +1,29 @@
+{
+  "name": "nestfall-arena",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "《巢城對決 NESTFALL ARENA》— 雙人同機即時物理攻防遊戲",
+  "scripts": {
+    "dev": "http-server . -p 4173 -c-1 -o",
+    "serve": "http-server . -p 4173 -c-1",
+    "test": "node --test tests/engine.test.mjs tests/game-flow.test.mjs",
+    "test:balance": "node tests/balance-report.mjs",
+    "test:physics": "node tests/physics-report.mjs 200",
+    "test:browser": "playwright test",
+    "verify": "npm test && npm run test:balance && npm run test:physics && npm run test:browser"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.62.0",
+    "http-server": "^14.1.1"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "couch-versus",
+    "physics-game",
+    "html5-canvas",
+    "github-pages"
+  ]
+}

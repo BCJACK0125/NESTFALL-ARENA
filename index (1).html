@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#071119" />
+    <meta
+      name="description"
+      content="Nestfall Arena《巢城對決》——一台電腦、兩位玩家、同時攻防的原創物理對戰遊戲。"
+    />
+    <meta property="og:title" content="Nestfall Arena｜巢城對決" />
+    <meta
+      property="og:description"
+      content="拉弓、攔截、回收殘骸。守住星核，轟垮對手。"
+    />
+    <meta property="og:type" content="website" />
+    <title>Nestfall Arena｜巢城對決</title>
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#gameShell">直接前往遊戲</a>
+
+    <div class="site-glow site-glow--cyan" aria-hidden="true"></div>
+    <div class="site-glow site-glow--coral" aria-hidden="true"></div>
+
+    <main class="page-shell">
+      <header class="topbar" aria-label="遊戲導覽列">
+        <a class="brand" href="./" aria-label="Nestfall Arena 首頁">
+          <span class="brand-mark" aria-hidden="true">
+            <span class="brand-mark__arc"></span>
+            <span class="brand-mark__core"></span>
+          </span>
+          <span class="brand-copy">
+            <span class="brand-name">NESTFALL</span>
+            <span class="brand-subtitle">ARENA · 巢城對決</span>
+          </span>
+        </a>
+
+        <div class="toolbar" aria-label="遊戲設定">
+          <button
+            class="icon-button"
+            id="soundButton"
+            type="button"
+            aria-label="關閉音效"
+            aria-pressed="true"
+            title="開啟或關閉音效"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 9v6h4l5 4V5L8 9H4Z"></path>
+              <path class="sound-wave" d="M16 8.2a5.2 5.2 0 0 1 0 7.6M18.8 5.5a9 9 0 0 1 0 13"></path>
+            </svg>
+            <span class="visually-hidden">音效</span>
+          </button>
+          <button
+            class="icon-button"
+            id="motionButton"
+            type="button"
+            aria-label="關閉動態效果"
+            aria-pressed="true"
+            title="開啟或關閉動態效果"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 12h4l2.2-6 3.4 12 2.1-6H20"></path>
+            </svg>
+            <span class="visually-hidden">動態效果</span>
+          </button>
+          <button
+            class="icon-button"
+            id="fullscreenButton"
+            type="button"
+            aria-label="進入全螢幕"
+            aria-pressed="false"
+            title="進入全螢幕"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8 4H4v4M16 4h4v4M20 16v4h-4M8 20H4v-4"></path>
+            </svg>
+            <span class="visually-hidden">全螢幕</span>
+          </button>
+        </div>
+      </header>
+
+      <section
+        class="game-shell"
+        id="gameShell"
+        aria-label="Nestfall Arena 巢城對決雙人本機遊戲"
+      >
+        <div class="arena-chrome" aria-hidden="true">
+          <span class="corner corner--tl"></span>
+          <span class="corner corner--tr"></span>
+          <span class="corner corner--bl"></span>
+          <span class="corner corner--br"></span>
+        </div>
+
+        <canvas
+          id="gameCanvas"
+          width="1280"
+          height="720"
+          tabindex="0"
+          aria-label="遊戲戰場。玩家一使用 W、S、F、G、R；玩家二使用上下方向鍵、J、K、L。"
+        >
+          你的瀏覽器不支援 Canvas。請改用最新版 Chrome、Edge、Firefox 或 Safari。
+        </canvas>
+
+        <div class="status-strip" id="statusStrip" aria-label="對戰狀態">
+          <div class="status-team status-team--cyan">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span class="status-player">P1 青曜</span>
+            <span class="status-core">星核 200</span>
+          </div>
+          <div class="round-clock" aria-label="本局時間 2 分 30 秒">
+            <span>ROUND 01</span>
+            <strong>02:30</strong>
+          </div>
+          <div class="status-team status-team--coral">
+            <span class="status-core">星核 200</span>
+            <span class="status-player">P2 緋曜</span>
+            <span class="status-dot" aria-hidden="true"></span>
+          </div>
+        </div>
+
+        <section class="game-layer menu-layer" id="menuLayer" aria-labelledby="menuTitle">
+          <div class="menu-atmosphere" aria-hidden="true">
+            <span class="orbit orbit--one"></span>
+            <span class="orbit orbit--two"></span>
+            <span class="floating-shard floating-shard--one"></span>
+            <span class="floating-shard floating-shard--two"></span>
+            <span class="floating-shard floating-shard--three"></span>
+          </div>
+
+          <div class="menu-layout">
+            <div class="hero-panel">
+              <div class="eyebrow">
+                <span class="eyebrow-pulse" aria-hidden="true"></span>
+                2 PLAYERS · 1 KEYBOARD
+              </div>
+              <h1 id="menuTitle">
+                <span>NESTFALL</span>
+                <em>ARENA</em>
+              </h1>
+              <p class="hero-kicker">巢城對決</p>
+              <p class="hero-copy">
+                拉弓、攔截、回收殘骸。攻擊與防守同時發生——<br />守住你的星核，讓對手的堡壘先墜落。
+              </p>
+
+              <div class="feature-pills" aria-label="遊戲特色">
+                <span>即時同樂</span>
+                <span>物理破壞</span>
+                <span>150 秒決勝</span>
+              </div>
+
+              <div class="primary-actions">
+                <button class="button button--primary" id="startButton" type="button">
+                  <span class="button-shine" aria-hidden="true"></span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="m9 7 7 5-7 5V7Z"></path>
+                  </svg>
+                  開始對戰
+                  <span class="button-hint">ENTER</span>
+                </button>
+                <button class="button button--ghost" id="tutorialButton" type="button">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="8"></circle>
+                    <path d="M9.8 9.4a2.3 2.3 0 1 1 3.2 2.1c-.7.4-1 .8-1 1.5M12 16.6h.01"></path>
+                  </svg>
+                  完整教學
+                </button>
+              </div>
+
+              <p class="start-note">
+                <span aria-hidden="true">✦</span>
+                無需手把，邀請身旁的對手即可開戰
+              </p>
+            </div>
+
+            <div class="briefing-panel">
+              <div class="briefing-heading">
+                <div>
+                  <span class="section-label">BATTLE BRIEFING</span>
+                  <h2>同時攻防，一秒都不能分心</h2>
+                </div>
+                <span class="match-badge">LOCAL VS</span>
+              </div>
+
+              <div class="control-grid" aria-label="玩家操作方式">
+                <article class="control-card control-card--cyan">
+                  <header>
+                    <div>
+                      <span class="player-number">PLAYER 01</span>
+                      <h3>青曜陣營</h3>
+                    </div>
+                    <span class="team-sigil" aria-hidden="true">●</span>
+                  </header>
+                  <div class="key-map">
+                    <span class="key-pair"><kbd>W</kbd><kbd>S</kbd><b>調整角度</b></span>
+                    <span class="key-pair"><kbd>F</kbd><b>蓄力／發射</b></span>
+                    <span class="key-pair"><kbd>G</kbd><b>光盾攔截</b></span>
+                    <span class="key-pair"><kbd>R</kbd><b>切換彈種</b></span>
+                  </div>
+                </article>
+
+                <article class="control-card control-card--coral">
+                  <header>
+                    <div>
+                      <span class="player-number">PLAYER 02</span>
+                      <h3>緋曜陣營</h3>
+                    </div>
+                    <span class="team-sigil" aria-hidden="true">◆</span>
+                  </header>
+                  <div class="key-map">
+                    <span class="key-pair"><kbd>↑</kbd><kbd>↓</kbd><b>調整角度</b></span>
+                    <span class="key-pair"><kbd>J</kbd><b>蓄力／發射</b></span>
+                    <span class="key-pair"><kbd>K</kbd><b>光盾攔截</b></span>
+                    <span class="key-pair"><kbd>L</kbd><b>切換彈種</b></span>
+                  </div>
+                </article>
+              </div>
+
+              <ol class="how-to-play" aria-label="三步驟玩法">
+                <li>
+                  <span class="step-number">01</span>
+                  <span class="step-icon" aria-hidden="true">↗</span>
+                  <div><strong>拉弓進攻</strong><small>蓄力瞄準，挑對彈種拆解結構</small></div>
+                </li>
+                <li>
+                  <span class="step-number">02</span>
+                  <span class="step-icon" aria-hidden="true">◈</span>
+                  <div><strong>即時攔截</strong><small>抓準瞬間展開光盾，反彈致命砲擊</small></div>
+                </li>
+                <li>
+                  <span class="step-number">03</span>
+                  <span class="step-icon" aria-hidden="true">✦</span>
+                  <div><strong>殘骸逆轉</strong><small>破壞轉化為資源，修復星核蓄勢反攻</small></div>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <section class="game-layer modal-layer" id="pauseLayer" hidden aria-labelledby="pauseTitle">
+          <div class="overlay-card overlay-card--pause">
+            <span class="overlay-icon" aria-hidden="true">Ⅱ</span>
+            <p class="section-label">MATCH SUSPENDED</p>
+            <h2 id="pauseTitle">戰局暫停</h2>
+            <p>喘口氣。星核已進入短暫的時間凍結。</p>
+            <div class="stacked-actions">
+              <button class="button button--primary" id="resumeButton" type="button">繼續對戰</button>
+              <button class="button button--ghost" id="restartButton" type="button">重新開始</button>
+              <button class="text-button" id="menuButton" type="button">返回主選單</button>
+            </div>
+            <span class="keyboard-tip"><kbd>ESC</kbd> 繼續</span>
+          </div>
+        </section>
+
+        <section class="game-layer modal-layer" id="gameOverLayer" hidden aria-labelledby="resultTitle">
+          <div class="overlay-card overlay-card--result">
+            <p class="section-label" id="resultEyebrow">MATCH COMPLETE</p>
+            <div class="victory-emblem" aria-hidden="true"><span>✦</span></div>
+            <h2 id="resultTitle">青曜陣營勝利</h2>
+            <p class="result-summary" id="resultSummary">最後一擊穿透堡壘，守住了閃耀的星核。</p>
+            <div class="result-stats" id="resultStats" aria-label="本局統計">
+              <div><span>造成傷害</span><strong>—</strong></div>
+              <div><span>完美格擋</span><strong>—</strong></div>
+              <div><span>剩餘星核</span><strong>—</strong></div>
+            </div>
+            <div class="primary-actions primary-actions--centered">
+              <button class="button button--primary" id="rematchButton" type="button">立即再戰</button>
+              <button class="button button--ghost" id="resultMenuButton" type="button">返回主選單</button>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <p class="mobile-hint">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="6" width="18" height="12" rx="2"></rect>
+          <path d="M7 10h2M8 9v2M15.5 10.8h.01M18 9.5h.01M6 15h12"></path>
+        </svg>
+        這是雙人鍵盤對戰遊戲，建議使用桌上型電腦並開啟全螢幕。
+      </p>
+
+      <footer class="page-footer">
+        <span>ORIGINAL COUCH VERSUS EXPERIENCE</span>
+        <span aria-hidden="true">◆</span>
+        <span>BUILT FOR TWO</span>
+      </footer>
+    </main>
+
+    <dialog class="tutorial-dialog" id="tutorialDialog" aria-labelledby="tutorialTitle">
+      <div class="dialog-surface">
+        <header class="dialog-header">
+          <div>
+            <p class="section-label">FIELD MANUAL · 01</p>
+            <h2 id="tutorialTitle">90 秒上手競技場</h2>
+          </div>
+          <button class="dialog-close" id="closeTutorial" type="button" aria-label="關閉教學">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"></path></svg>
+          </button>
+        </header>
+
+        <div class="tutorial-intro">
+          <span class="tutorial-glyph" aria-hidden="true">◎</span>
+          <p>
+            這不是輪流出手的砲擊戰。兩位玩家會<strong>同時瞄準、發射與防守</strong>；讀懂對手的節奏，比單純射得準更重要。
+          </p>
+        </div>
+
+        <div class="tutorial-grid">
+          <article>
+            <span class="tutorial-number">01</span>
+            <div class="tutorial-visual tutorial-visual--aim" aria-hidden="true">
+              <span class="mini-sling"></span><i></i><i></i><i></i>
+            </div>
+            <h3>瞄準與蓄力</h3>
+            <p>按方向鍵調整砲口，按住發射鍵累積力道，放開便射出。虛線會預覽前段彈道。</p>
+          </article>
+          <article>
+            <span class="tutorial-number">02</span>
+            <div class="tutorial-visual tutorial-visual--shield" aria-hidden="true">
+              <span></span><b>PERFECT</b>
+            </div>
+            <h3>光盾與完美格擋</h3>
+            <p>光盾會消耗能量。命中前一瞬間開盾可觸發完美格擋，把砲彈高速反彈回去。</p>
+          </article>
+          <article>
+            <span class="tutorial-number">03</span>
+            <div class="tutorial-visual tutorial-visual--scrap" aria-hidden="true">
+              <i></i><i></i><i></i><span>+SCRAP</span>
+            </div>
+            <h3>把破壞變資源</h3>
+            <p>建材受損會掉落殘骸能量。承受壓力的一方能更快累積修復，保留逆轉機會。</p>
+          </article>
+        </div>
+
+        <section class="ammo-guide" aria-labelledby="ammoTitle">
+          <div>
+            <p class="section-label">ARSENAL</p>
+            <h3 id="ammoTitle">三種彈藥，各有破口</h3>
+          </div>
+          <ul>
+            <li><span class="ammo-dot ammo-dot--dart">➤</span><b>疾風球</b><small>免費 · 再按發射鍵突進</small></li>
+            <li><span class="ammo-dot ammo-dot--split">⋮</span><b>三相球</b><small>24 能量 · 分裂三枚</small></li>
+            <li><span class="ammo-dot ammo-dot--nova">✦</span><b>新星球</b><small>46 能量 · 範圍引爆</small></li>
+          </ul>
+        </section>
+
+        <div class="win-rule">
+          <span aria-hidden="true">⌁</span>
+          <p><strong>勝利條件</strong>　150 秒內摧毀對手星核；時間到時，依星核耐久與工事完整度綜合判定。</p>
+        </div>
+
+        <footer class="dialog-footer">
+          <p><kbd>P</kbd> 或 <kbd>ESC</kbd> 可在對戰中暫停</p>
+          <button class="button button--primary" id="tutorialStart" type="button">
+            我準備好了
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 7 7 5-7 5V7Z"></path></svg>
+          </button>
+        </footer>
+      </div>
+    </dialog>
+
+    <div class="visually-hidden" id="liveRegion" role="status" aria-live="polite" aria-atomic="true"></div>
+    <script type="module" src="./js/game.js"></script>
+  </body>
+</html>
